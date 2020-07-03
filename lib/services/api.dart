@@ -1,4 +1,4 @@
-String url = 'http://142.93.122.114:3333/login';
+String url = 'http://142.93.122.114:3333';
 
 Map<String, String> headers = {
   "Content-Type": "application/json",

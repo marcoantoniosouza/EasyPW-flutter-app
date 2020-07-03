@@ -60,45 +60,81 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  final loginHeader = Text('INICIAR SESSÃO!');
+  _fieldFocusChange(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+  }
+
+  final loginHeader = Column(children: <Widget>[
+    Icon(
+      Icons.lock,
+      color: Colors.teal,
+      size: 100,
+    )
+  ]);
 
   @override
   Widget build(BuildContext context) {
+    final FocusNode _userFocus = FocusNode();
+    final FocusNode _passFocus = FocusNode();
+
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            loginHeader,
-            SizedBox(height: 48.0),
-            TextFormField(
-              controller: _user,
-              decoration: InputDecoration(
-                hintText: 'Usuário',
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(32.0)),
-              ),
-              textAlign: TextAlign.center,
+        backgroundColor: Colors.grey[200],
+        body: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                loginHeader,
+                SizedBox(height: 48.0),
+                TextFormField(
+                  controller: _user,
+                  textInputAction: TextInputAction.next,
+                  focusNode: _userFocus,
+                  onFieldSubmitted: (term) {
+                    _fieldFocusChange(context, _userFocus, _passFocus);
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Usuário',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0)),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 8.0),
+                TextFormField(
+                  showCursor: false,
+                  controller: _pass,
+                  textInputAction: TextInputAction.done,
+                  focusNode: _passFocus,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: 'Senha',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0)),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 8.0),
+                Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: MaterialButton(
+                      onPressed: _loginApi,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32)),
+                      padding: EdgeInsets.all(12),
+                      color: Colors.teal,
+                      minWidth: double.infinity,
+                      child: Text(
+                        'Login',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )),
+              ],
             ),
-            SizedBox(height: 8.0),
-            TextFormField(
-              controller: _pass,
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: 'Senha',
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(32.0)),
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 8.0),
-            RaisedButton(
-              onPressed: _loginApi,
-              child: Text('Login'),
-            ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }

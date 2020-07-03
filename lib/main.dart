@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
           }
         },
         child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'PaulaPass',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.teal,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           home: LoginPage(),

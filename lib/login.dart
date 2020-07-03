@@ -25,7 +25,8 @@ class _LoginPageState extends State<LoginPage> {
         _pass.text +
         '" }'; // make POST request
 
-    Response response = await post(api.url, headers: api.headers, body: json);
+    Response response =
+        await post(api.url + '/login', headers: api.headers, body: json);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> res = jsonDecode(response.body);

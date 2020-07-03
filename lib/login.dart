@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
+import 'passes.dart';
+
 import 'services/api.dart' as api;
 import 'env.dart' as env;
 
@@ -27,12 +29,13 @@ class _LoginPageState extends State<LoginPage> {
 
     if (response.statusCode == 200) {
       Map<String, dynamic> res = jsonDecode(response.body);
-      _showDialog(res['authHash']);
+      //_showDialog(res['authHash']);
       env.authHash = res['authHash'];
-      /*Navigator.push(
+      //Navigator.of(context).pushNamed(PassesPage.tag);
+      Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => SecondRoute()),
-      );*/
+        MaterialPageRoute(builder: (context) => PassesPage()),
+      );
     } else {
       _showDialog('Falha no login');
     }

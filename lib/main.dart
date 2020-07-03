@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'login.dart';
+import 'passes.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,6 +10,7 @@ void main() {
 class MyApp extends StatelessWidget {
   final routes = <String, WidgetBuilder>{
     LoginPage.tag: (context) => LoginPage(),
+    PassesPage.tag: (context) => PassesPage(),
   };
 
   @override

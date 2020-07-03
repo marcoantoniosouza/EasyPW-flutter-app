@@ -1,4 +1,4 @@
-package com.example.PaulaPass
+package com.example.EasyPW
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           }
         },
         child: MaterialApp(
-          title: 'PaulaPass',
+          title: 'EasyPW',
           theme: ThemeData(
             primarySwatch: Colors.teal,
             visualDensity: VisualDensity.adaptivePlatformDensity,

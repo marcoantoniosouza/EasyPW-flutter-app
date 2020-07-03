@@ -1,4 +1,4 @@
-# PaulaPass
+# EasyPW
 
 A new Flutter project.
 

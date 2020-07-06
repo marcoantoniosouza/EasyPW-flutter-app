@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 
 import 'passes.dart';
 
-import 'services/api.dart' as api;
+import 'Service/apiService.dart' as apiService;
 import 'env.dart' as env;
 
 class LoginPage extends StatefulWidget {
@@ -25,8 +25,8 @@ class _LoginPageState extends State<LoginPage> {
         _pass.text +
         '" }'; // make POST request
 
-    Response response =
-        await post(api.url + '/login', headers: api.headers, body: json);
+    Response response = await post(apiService.url + '/login',
+        headers: apiService.headers, body: json);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> res = jsonDecode(response.body);

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
-import '../services/api.dart' as api;
+import '../Service/apiService.dart' as apiService;
 import '../env.dart' as env;
 
 List<Pass> parsePasses(String responseBody) {
@@ -12,9 +12,10 @@ List<Pass> parsePasses(String responseBody) {
 }
 
 Future<List<Pass>> getPasses() async {
-  api.headers['auth'] = env.authHash;
+  apiService.headers['auth'] = env.authHash;
 
-  final response = await get(api.url + '/passes', headers: api.headers);
+  final response =
+      await get(apiService.url + '/passes', headers: apiService.headers);
 
   return compute(parsePasses, response.body);
 }

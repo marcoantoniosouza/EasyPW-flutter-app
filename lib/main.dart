@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'login.dart';
 import 'passes.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'EasyPW',
           theme: ThemeData(
+            textTheme: GoogleFonts.robotoTextTheme(
+              Theme.of(context).textTheme,
+            ),
             primarySwatch: Colors.teal,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),

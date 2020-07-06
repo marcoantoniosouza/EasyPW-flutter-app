@@ -10,6 +10,9 @@ class PassesPage extends StatefulWidget {
 }
 
 class _PassesPageState extends State<PassesPage> {
+  var refreshKey = GlobalKey<RefreshIndicatorState>();
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,19 +26,38 @@ class _PassesPageState extends State<PassesPage> {
             color: Colors.teal,
           ),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            color: Colors.teal,
+            onPressed: () {
+              setState(() {
+                isLoading = true;
+              });
+              PassController.getPasses().then((passes) {
+                setState(() {
+                  isLoading = false;
+                });
+              });
+            },
+          ),
+        ],
       ),
-      body: FutureBuilder<List<PassController.Pass>>(
-        future: PassController.getPasses(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : FutureBuilder<List<PassController.Pass>>(
+              key: refreshKey,
+              future: PassController.getPasses(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) print(snapshot.error);
 
-          return snapshot.hasData
-              ? PassesList(
-                  passes: snapshot.data,
-                )
-              : Center(child: CircularProgressIndicator());
-        },
-      ),
+                return snapshot.hasData
+                    ? PassesList(
+                        passes: snapshot.data,
+                      )
+                    : Center(child: CircularProgressIndicator());
+              },
+            ),
     );
   }
 }
@@ -86,7 +108,7 @@ class PassesList extends StatelessWidget {
                             color: Colors.white,
                           ),
                           onPressed: () {
-                            print('Pressed');
+                            print(passes[index].senha);
                           },
                         ),
                       ],

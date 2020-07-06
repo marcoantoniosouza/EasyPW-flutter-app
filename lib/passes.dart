@@ -1,8 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 
-import 'services/api.dart' as api;
-import 'env.dart' as env;
+import 'Controller/PassController.dart' as PassController;
 
 class PassesPage extends StatefulWidget {
   static String tag = 'passes-page';
@@ -11,29 +10,37 @@ class PassesPage extends StatefulWidget {
 }
 
 class _PassesPageState extends State<PassesPage> {
-  final _passes = TextEditingController();
-
-  _apiGetPasses() async {
-    api.headers['auth'] = env.authHash;
-
-    await get(api.url + '/passes', headers: api.headers).then((res) {
-      setState(() {
-        print(res.body);
-        _passes.text = res.body;
-      });
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _apiGetPasses();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text(_passes.text),
+      body: FutureBuilder<List<PassController.Pass>>(
+        future: PassController.getPasses(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) print(snapshot.error);
+
+          return snapshot.hasData
+              ? PassesList(
+                  passes: snapshot.data,
+                )
+              : Center(child: CircularProgressIndicator());
+        },
+      ),
+    );
+  }
+}
+
+class PassesList extends StatelessWidget {
+  final List<PassController.Pass> passes;
+
+  PassesList({Key key, this.passes}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: passes.length,
+      itemBuilder: (context, index) {
+        return Text(passes[index].nome);
+      },
     );
   }
 }

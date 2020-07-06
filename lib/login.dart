@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                     hintText: 'Usuário',
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
+                        borderRadius: BorderRadius.circular(12.0)),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -117,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                     hintText: 'Senha',
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
+                        borderRadius: BorderRadius.circular(12.0)),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -127,13 +127,17 @@ class _LoginPageState extends State<LoginPage> {
                     child: MaterialButton(
                       onPressed: _loginApi,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32)),
+                          borderRadius: BorderRadius.circular(12)),
                       padding: EdgeInsets.all(12),
                       color: Colors.teal,
                       minWidth: double.infinity,
+                      height: 58,
                       child: Text(
-                        'Login',
-                        style: TextStyle(color: Colors.white),
+                        'Entrar',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
                       ),
                     )),
               ],

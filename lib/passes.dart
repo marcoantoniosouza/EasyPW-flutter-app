@@ -62,25 +62,29 @@ class _PassesPageState extends State<PassesPage> {
   }
 }
 
-class PassesList extends StatelessWidget {
+class PassesList extends StatefulWidget {
   final List<PassController.Pass> passes;
 
   PassesList({Key key, this.passes}) : super(key: key);
 
   @override
+  _PassesListState createState() => new _PassesListState();
+}
+
+class _PassesListState extends State<PassesList> {
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: passes.length,
+      itemCount: widget.passes.length,
       itemBuilder: (context, index) {
         return ListTile(
           trailing: IconButton(
             icon: Icon(Icons.visibility),
             onPressed: () {
-              print(passes[index].senha);
+              print(widget.passes[index].senha);
             },
           ),
           title: Text(
-            passes[index].nome,
+            widget.passes[index].nome,
           ),
         );
       },

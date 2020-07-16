@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Controller/PassController.dart' as PassController;
+
 class NewPass extends StatefulWidget {
   @override
   _NewPassState createState() => _NewPassState();
@@ -43,7 +45,12 @@ class _NewPassState extends State<NewPass> {
               ),
               SizedBox(height: 8.0),
               MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  print(_newNome.text);
+                  print(_newPass.text);
+                  PassController.newPass(_newNome.text, _newPass.text).then(
+                      (statusCode) => {Navigator.pop(context, statusCode)});
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
                 padding: EdgeInsets.all(12),

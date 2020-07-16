@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../Service/apiService.dart' as apiService;
@@ -15,19 +15,31 @@ Future<List<Pass>> getPasses() async {
   apiService.headers['auth'] = env.authHash;
 
   final response =
-      await get(apiService.url + '/passes', headers: apiService.headers);
+      await http.get(apiService.url + '/passes', headers: apiService.headers);
 
   return compute(parsePasses, response.body);
 }
 
 newPass(String newNome, String newPass) async {
-  print('newPass');
   apiService.headers['auth'] = env.authHash;
 
-  final response = await post(
+  final response = await http.post(
     apiService.url + '/passes',
     headers: apiService.headers,
     body: jsonEncode(<String, String>{'nome': newNome, 'pass': newPass}),
+  );
+
+  return response.statusCode;
+}
+
+deletePass(String id) async {
+  print('DELETE');
+  print('id: $id');
+  apiService.headers['auth'] = env.authHash;
+
+  final response = await http.delete(
+    apiService.url + '/passes/$id',
+    headers: apiService.headers,
   );
 
   print(response.statusCode);
@@ -44,7 +56,7 @@ class Pass {
 
   factory Pass.fromJson(Map<String, dynamic> json) {
     return Pass(
-      id: json['id'] as String,
+      id: json['_id'] as String,
       nome: json['nome'] as String,
       senha: json['pass'] as String,
     );

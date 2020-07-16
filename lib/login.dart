@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextFormField(
                   showCursor: false,
                   controller: _pass,
-                  textInputAction: TextInputAction.done,
+                  textInputAction: TextInputAction.go,
                   focusNode: _passFocus,
                   obscureText: true,
                   decoration: InputDecoration(

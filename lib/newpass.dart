@@ -11,6 +11,15 @@ class _NewPassState extends State<NewPass> {
   final _newNome = TextEditingController();
   final _newPass = TextEditingController();
 
+  final FocusNode _nomeFocus = FocusNode();
+  final FocusNode _passFocus = FocusNode();
+
+  _fieldFocusChange(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +33,11 @@ class _NewPassState extends State<NewPass> {
             children: <Widget>[
               TextFormField(
                 controller: _newNome,
+                focusNode: _nomeFocus,
                 textInputAction: TextInputAction.next,
+                onFieldSubmitted: (term) {
+                  _fieldFocusChange(context, _nomeFocus, _passFocus);
+                },
                 decoration: InputDecoration(
                   hintText: 'Nome',
                   border: OutlineInputBorder(
@@ -35,7 +48,9 @@ class _NewPassState extends State<NewPass> {
               SizedBox(height: 8.0),
               TextFormField(
                 controller: _newPass,
-                textInputAction: TextInputAction.next,
+                focusNode: _passFocus,
+                textInputAction: TextInputAction.go,
+                obscureText: true,
                 decoration: InputDecoration(
                   hintText: 'Senha',
                   border: OutlineInputBorder(

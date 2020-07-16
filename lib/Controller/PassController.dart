@@ -20,6 +20,21 @@ Future<List<Pass>> getPasses() async {
   return compute(parsePasses, response.body);
 }
 
+newPass(String newNome, String newPass) async {
+  print('newPass');
+  apiService.headers['auth'] = env.authHash;
+
+  final response = await post(
+    apiService.url + '/passes',
+    headers: apiService.headers,
+    body: jsonEncode(<String, String>{'nome': newNome, 'pass': newPass}),
+  );
+
+  print(response.statusCode);
+
+  return response.statusCode;
+}
+
 class Pass {
   final String id;
   final String nome;

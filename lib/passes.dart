@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'Controller/PassController.dart' as PassController;
+import 'newpass.dart';
 
 class PassesPage extends StatefulWidget {
   static String tag = 'passes-page';
@@ -17,19 +18,12 @@ class _PassesPageState extends State<PassesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.teal),
         title: Text(
           'Senhas',
-          style: TextStyle(
-            color: Colors.teal,
-          ),
         ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.refresh),
-            color: Colors.teal,
             onPressed: () {
               setState(() {
                 isLoading = true;
@@ -59,7 +53,12 @@ class _PassesPageState extends State<PassesPage> {
               },
             ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NewPass()),
+          );
+        },
         child: Icon(Icons.add),
       ),
     );

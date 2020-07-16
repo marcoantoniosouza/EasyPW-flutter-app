@@ -58,6 +58,10 @@ class _PassesPageState extends State<PassesPage> {
                     : Center(child: CircularProgressIndicator());
               },
             ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
@@ -76,15 +80,47 @@ class _PassesListState extends State<PassesList> {
     return ListView.builder(
       itemCount: widget.passes.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          trailing: IconButton(
-            icon: Icon(Icons.visibility),
-            onPressed: () {
-              print(widget.passes[index].senha);
-            },
-          ),
-          title: Text(
-            widget.passes[index].nome,
+        final _pass = TextEditingController();
+        _pass.text = 'Senha: *******';
+
+        _changeVisibility(index) {
+          String text;
+
+          if (_pass.text == 'Senha: *******') {
+            text = widget.passes[index].senha;
+          } else {
+            text = '*******';
+          }
+
+          _pass.text = 'Senha: ' + text;
+        }
+
+        return Card(
+          child: ListTile(
+            title: Padding(
+                padding: EdgeInsets.all(2),
+                child: Text(
+                  widget.passes[index].nome,
+                )),
+            subtitle: TextField(
+              controller: _pass,
+              enabled: false,
+              maxLines: 1,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(0.0),
+                isDense: true,
+                border: InputBorder.none,
+              ),
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
+            trailing: IconButton(
+              icon: Icon(Icons.visibility),
+              onPressed: () {
+                _changeVisibility(index);
+              },
+            ),
           ),
         );
       },

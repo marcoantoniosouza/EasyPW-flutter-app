@@ -135,11 +135,33 @@ class _PassesListState extends State<PassesList> {
                 fontSize: 14,
               ),
             ),
-            trailing: IconButton(
-              icon: Icon(Icons.visibility),
-              onPressed: () {
-                _changeVisibility(index);
-              },
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  color: Colors.red[300],
+                  onPressed: () {
+                    PassController.deletePass(widget.passes[index].id)
+                        .then(
+                          Scaffold.of(context)
+                            ..showSnackBar(
+                              SnackBar(
+                                content: Text("Senha deletada"),
+                                backgroundColor: Colors.green,
+                              ),
+                            ),
+                        )
+                        .then(PassController.getPasses());
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.visibility),
+                  onPressed: () {
+                    _changeVisibility(index);
+                  },
+                ),
+              ],
             ),
           ),
         );

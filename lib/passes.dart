@@ -4,8 +4,37 @@ import 'package:flutter/material.dart';
 import 'Controller/PassController.dart' as PassController;
 import 'newpass.dart';
 
+class AddButton extends StatelessWidget {
+  _navigateAndShowResponse(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => NewPass()),
+    );
+
+    if (result == 200) {
+      Scaffold.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(SnackBar(
+          content: Text("Nova senha cadastrada"),
+          backgroundColor: Colors.green,
+        ));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.add),
+      onPressed: () {
+        _navigateAndShowResponse(context);
+      },
+    );
+  }
+}
+
 class PassesPage extends StatefulWidget {
   static String tag = 'passes-page';
+
   @override
   _PassesPageState createState() => new _PassesPageState();
 }
@@ -22,6 +51,7 @@ class _PassesPageState extends State<PassesPage> {
           'Senhas',
         ),
         actions: <Widget>[
+          AddButton(),
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () {
@@ -52,15 +82,6 @@ class _PassesPageState extends State<PassesPage> {
                     : Center(child: CircularProgressIndicator());
               },
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => NewPass()),
-          );
-        },
-        child: Icon(Icons.add),
-      ),
     );
   }
 }

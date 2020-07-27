@@ -7,6 +7,7 @@ import 'passes.dart';
 
 import 'Service/apiService.dart' as apiService;
 import 'env.dart' as env;
+import 'Service/crypter.dart' as crypter;
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -33,6 +34,9 @@ class _LoginPageState extends State<LoginPage> {
       //_showDialog(res['authHash']);
       env.authHash = res['authHash'];
       //Navigator.of(context).pushNamed(PassesPage.tag);
+
+      crypter.generateKey(_user.text, _pass.text);
+
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => PassesPage()),

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'Controller/PassController.dart' as PassController;
+import './Service/crypter.dart' as crypter;
 import 'newpass.dart';
 
 class AddButton extends StatelessWidget {
@@ -107,7 +108,7 @@ class _PassesListState extends State<PassesList> {
           String text;
 
           if (_pass.text == 'Senha: *******') {
-            text = widget.passes[index].senha;
+            text = crypter.decrypt(widget.passes[index].senha);
           } else {
             text = '*******';
           }

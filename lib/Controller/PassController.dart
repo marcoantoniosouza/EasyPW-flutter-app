@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../Service/apiService.dart' as apiService;
+import '../Service/crypter.dart' as crypter;
 import '../env.dart' as env;
 
 List<Pass> parsePasses(String responseBody) {
@@ -26,7 +27,8 @@ newPass(String newNome, String newPass) async {
   final response = await http.post(
     apiService.url + '/passes',
     headers: apiService.headers,
-    body: jsonEncode(<String, String>{'nome': newNome, 'pass': newPass}),
+    body: jsonEncode(
+        <String, String>{'nome': newNome, 'pass': crypter.encrypt(newPass)}),
   );
 
   return response.statusCode;
